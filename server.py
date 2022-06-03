@@ -9,10 +9,21 @@ class TodoService(todo_pb2_grpc.TodoServicer):
         self.todos = []
 
     def createTodo(self, request, context):
-        raise Exception('Not Implemented')
+        print("Executing the create todo rpc")
+        print(request)
+        reply = todo_pb2.TodoItem()
+        reply.id = request.id
+        reply.text = request.text + "added from server"
+        self.todos.append(reply)
+        return reply
     
     def readTodos(self, request, context):
-        raise Exception('Not Implemented')
+        print("Executing the read todos rpc")
+        print(request)
+        reply = todo_pb2.TodoItems()
+        reply.items.append(self.todos[0])
+        return reply
+
 
 
 def serve():
